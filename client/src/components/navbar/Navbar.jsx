@@ -8,6 +8,9 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    zIndex: "1250"
+  },
   toolBar: {
     "& > *": {
       margin: theme.spacing(3)
@@ -25,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const classes = useStyles();
   return (
-    <AppBar>
+    <AppBar className={classes.root}>
       <ToolBar className={classes.toolBar}>
         <img src={appLogo} alt="app-logo" className={classes.appLogo} />
         <Typography variant="h4" className={classes.title}>
