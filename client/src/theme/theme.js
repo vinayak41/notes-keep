@@ -3,7 +3,10 @@ import { createTheme } from "@material-ui/core/styles";
 export const lightTheme = () =>
   createTheme({
     typography: {
-      fontFamily: ["Ubuntu", "sans-serif"].join(","),
+      fontFamily: ["Ubuntu", "sans-serif"],
+      fontWeightRegular: 400,
+      fontWeightMedium: 500,
+      fontWeightBold: 700,
     },
     palette: {
       type: "light",
@@ -32,4 +35,5 @@ export const lightTheme = () =>
         secondary: "#2d2d2d",
       },
     },
+    spacing: 2,
   });
