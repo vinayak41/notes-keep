@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import ToolBar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { IconButton, makeStyles } from "@material-ui/core";
-import appLogo from "../../assets/logo.png";
+import appLogo from "../assets/logo.png";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
