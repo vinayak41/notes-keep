@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import { useState } from "react";
 import Note from "./components/Note";
+import NotesContainer from "./components/NotesContainer";
 
 const useStyles = makeStyles((theme) => ({
   mainWindow: {
@@ -39,7 +40,7 @@ function App() {
         <NoteEditor open={openNoteEditor} setOpen={setOpenNoteEditor}/>
         <SideMenu />
         <Button onClick={() => setOpenNoteEditor(true)} variant="contained">New Note</Button>
-        <Note></Note>
+        <NotesContainer />
       </div>
     </div>
   );

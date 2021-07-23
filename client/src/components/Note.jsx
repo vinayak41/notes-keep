@@ -9,7 +9,6 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 
 const useStyles = makeStyles((theme) => ({
   note: {
-    width: "15rem",
     padding: "1rem 1.5rem 2.3rem",
     wordBreak: "break-all",
     borderRadius: "1rem",
