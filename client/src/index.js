@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 import {
   createTheme,
   responsiveFontSizes,
@@ -19,8 +20,10 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
+        <BrowserRouter>
+          <CssBaseline />
+          <App />
+        </BrowserRouter>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,
