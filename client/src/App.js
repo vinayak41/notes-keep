@@ -1,12 +1,5 @@
 import Navbar from "./components/Navbar";
-import SideMenu from "./components/SideMenu";
-import NoteEditor from "./components/NoteEditor";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
-import { useState } from "react";
-import Note from "./components/Note";
-import NotesContainer from "./components/NotesContainer";
-import Home from "./pages/Home"
 import { Route, Switch } from "react-router-dom";
 import routes from "./router";
 
@@ -20,14 +13,17 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       paddingTop: "64px",
     },
-    [theme.breakpoints.down(309)]: {
-      marginTop: "73px",
+    "&>div": {
+      width: "100vw",
+      minHeight: "calc(100vh - 60px)",
+      [theme.breakpoints.up("sm")]: {
+        minHeight: "calc(100vh - 64px)",
+      },
     },
   },
 }));
 
 function App() {
-
   const classes = useStyles();
 
   return (
@@ -35,7 +31,14 @@ function App() {
       <Navbar />
       <div className={classes.body}>
         <Switch>
-          {routes.map( route => <Route key={route.path} path={route.path} component={route.component} exact={route.exact ? true : false} /> )}
+          {routes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              component={route.component}
+              exact={route.exact ? true : false}
+            />
+          ))}
         </Switch>
       </div>
     </div>
