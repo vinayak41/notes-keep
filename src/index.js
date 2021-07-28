@@ -1,13 +1,16 @@
 const express = require("express");
 const env = require("dotenv");
 const mongoose = require("mongoose");
+const cors = require("cors")
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user");
+const noteRoutes = require("./routes/note")
 
 const app = express();
 env.config();
 const PORT = process.env.PORT;
 
+app.use(cors());
 
 //connect database
 mongoose.connect(
@@ -30,6 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //routes
+app.use("/note", noteRoutes)
 app.use("/user",  userRoutes);
 
 console.log(`server running at port ${PORT}`);

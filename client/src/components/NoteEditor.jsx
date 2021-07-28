@@ -1,12 +1,17 @@
 import React, { useState, useRef } from "react";
+import {useDispatch} from "react-redux"
+
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { v4 as uuid4 } from "uuid";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import Button from "@material-ui/core/Button";
-import { useEffect } from "react";
+
+import { addNote } from "../redux/actions/noteActions";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -56,22 +61,27 @@ export default function NoteEditor({ open, setOpen }) {
   const classes = useStyles();
   const [noteContent, setNoteContent] = useState("");
   const inputRef = useRef(null);
-
-  useEffect(() => {
-    console.log("note content : ", noteContent);
-  }, [noteContent]);
+  const dispatch = useDispatch()
 
   // const handleOpen = () => {
   //   setOpen(true);
   // };
 
   const handleClose = () => {
+    setNoteContent("")
     setOpen(false);
   };
 
   const handleChange = (html) => {
     setNoteContent(html);
   };
+
+  const handleAddNote = () => {
+    const noteId = uuid4();
+    console.log(noteId)
+    dispatch(addNote(noteContent, noteId))
+    handleClose();
+  }
 
   return (
     <div>
@@ -93,7 +103,7 @@ export default function NoteEditor({ open, setOpen }) {
               onChange={handleChange}
             />
             <div className={classes.btnsWrapper}>
-              <Button variant="contained" className={classes.saveBtn} onClick={handleClose}>
+              <Button variant="contained" className={classes.saveBtn} onClick={handleAddNote}>
                 Save
               </Button>
               <Button variant="contained" className={classes.cancelBtn} onClick={handleClose}>

@@ -1,0 +1,7 @@
+export const ADD_NOTE = "ADD_NOTE";
+export const ADD_NOTE_SUCCESS = "ADD_NOTE_SUCCESS";
+export const ADD_NOTE_FAILURE = "ADD_NOTE_FAILURE";
+
+export const SAVE_NOTE = "SAVE_NOTE";
+export const SAVE_NOTE_SUCCESS = "SAVE_NOTE_SUCCESS";
+export const SAVE_NOTE_FAILURE = "SAVE_NOTE_FAILURE";
