@@ -1,6 +1,7 @@
 import Navbar from "./components/Navbar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
 import routes from "./router";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   return (
     <div className="App">
@@ -35,7 +37,7 @@ function App() {
             <Route
               key={route.path}
               path={route.path}
-              component={route.component}
+              component={route.component(isLogin)}
               exact={route.exact ? true : false}
             />
           ))}
