@@ -1,11 +1,10 @@
 const express = require('express');
+const { requireSignIn } = require('../controllers/commonControllers');
 const router = express.Router();
-const {signin} = require("../controllers/user")
+const {signIn, signUp, getUser} = require("../controllers/user")
 
-router.get('/signin', signin);
-
-router.post('/user/signup', (req, res) => {
-    res.send('signup');
-})
+router.get("/", requireSignIn, getUser)
+router.post('/signin', signIn);
+router.post('/signup', signUp)
 
 module.exports = router;

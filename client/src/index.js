@@ -14,8 +14,6 @@ import { Provider } from "react-redux";
 
 const theme = responsiveFontSizes(lightTheme());
 
-console.log(theme);
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

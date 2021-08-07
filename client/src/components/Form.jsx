@@ -39,17 +39,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Form = ({title, button, inputs, handleSubmit}) => {
+const Form = ({title, button, inputs, handleSubmit, setFormData}) => {
   const classes = useStyles();
+
+  const handleChange = (event) =>{
+    setFormData( prevstate => ({ ...prevstate, [event.target.name]: event.target.value}))
+  }
+  
   return (
     <Paper component="form" onSubmit={handleSubmit} elevation={5} className={classes.root}>
       <h1>{title}</h1>
       <div className={classes.inputsWrapper}>
-        {inputs.map(({ label, type, handleChange }) => (
+        {inputs.map(({ label, name, type }) => (
           <TextField
             className={classes.inputField}
             key={label}
             type={type}
+            name={name}
             label={label}
             onChange={handleChange}
             variant="outlined"

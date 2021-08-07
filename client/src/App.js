@@ -1,8 +1,11 @@
 import Navbar from "./components/Navbar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Route, Switch } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import routes from "./router";
+import { useEffect } from "react";
+import { getUser } from "./redux/actions/userActions";
+import SnackBar from "./components/SnackBar";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -26,7 +29,15 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      dispatch(getUser(token));
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -43,6 +54,7 @@ function App() {
           ))}
         </Switch>
       </div>
+      <SnackBar />
     </div>
   );
 }
