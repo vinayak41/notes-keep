@@ -1,6 +1,7 @@
 import axios from "axios";
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { USER_API, USER_SIGNIN_API, USER_SIGUP_API } from "../../utils/api";
+import { getNotes } from "../actions/noteActions";
 import { showSnakcBar } from "../actions/snackBarActions";
 import {
   setUser,
@@ -40,7 +41,8 @@ function* signIn(action) {
       data: action.payload,
     });
     yield put(signInSuccess(response.data.token));
-    yield put(showSnakcBar("Sigin Successful", "success"))
+    yield put(showSnakcBar("Sigin Successful", "success"));
+    yield put(getNotes())
   } catch (error) {
     yield put(signInFailure());
     const errorMsg = error.response.data.message;
@@ -60,6 +62,7 @@ function* getUser(action) {
     });
     console.log(response);
     yield put(setUser());
+    yield put(getNotes())
   } catch (err) {
     console.log(err)
   }
