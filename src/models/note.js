@@ -4,7 +4,7 @@ const noteSchema = new mongoose.Schema({
     noteContent: {type: String, required: true},
     noteId: {type: String, required: true},
     color: {type: String},
-    isDelete: {type: Boolean, default: false},
+    isDeleted: {type: Boolean, default: false},
     tags: [
         {type: String}
     ],

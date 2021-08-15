@@ -10,8 +10,8 @@ const PublicRoute = ({ Component, path, exact, restricted }) => {
     <Route
     exact={exact ?? false}
       to={path}
-      render={() =>
-        isAuthenticated && restricted ? <Redirect to="/home" /> : <Component />
+      render={(props) =>
+        isAuthenticated && restricted ? <Redirect to="/home" /> : <Component {...props} />
       }
     />
   );

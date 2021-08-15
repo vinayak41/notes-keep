@@ -1,4 +1,4 @@
-import { ADD_NOTE, DELETE_NOTE, GET_NOTES_REQUEST } from "../typeConstants/noteTypeConstants";
+import { ADD_NOTE, DELETE_NOTE, DELETE_NOTE_FOREVER, GET_NOTES_REQUEST, RESTORE_NOTE } from "../typeConstants/noteTypeConstants";
 
 export const addNote = (noteContent, noteId) => {
   return {
@@ -16,9 +16,23 @@ export const getNotes = () => {
   }
 }
 
+export const deleteNoteForever = (noteId) => {
+  return {
+    type: DELETE_NOTE_FOREVER,
+    payload: noteId
+  }
+}
+
 export const deleteNote = (noteId) => {
   return {
     type: DELETE_NOTE,
+    payload: noteId
+  }
+}
+
+export const restoreNote = (noteId) => {
+  return {
+    type: RESTORE_NOTE,
     payload: noteId
   }
 }

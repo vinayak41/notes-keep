@@ -6,6 +6,7 @@ import { IconButton, makeStyles } from "@material-ui/core";
 import appLogo from "../assets/logo.png";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import LoadingLine from "./LoadingLine";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +38,7 @@ export default function Navbar() {
         <IconButton><Brightness4Icon /></IconButton>
         <IconButton><AccountCircleIcon /></IconButton>
       </ToolBar>
+      <LoadingLine />
     </AppBar>
   );
 }

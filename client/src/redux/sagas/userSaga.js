@@ -7,6 +7,8 @@ import {
   setUser,
   signInFailure,
   signInSuccess,
+  signUpFailure,
+  signUpSuccess,
   // signUpFailure,
   // signUpSuccess,
 } from "../actions/userActions";
@@ -24,12 +26,14 @@ function* signUp(action) {
       data: action.payload,
     });
     action.history.push("/signin")
-    yield put(showSnakcBar("Sigup Successful", "success"))
+    yield put(showSnakcBar("Sigup Successful", "success"));
+    yield put(signUpSuccess());
   } catch (error) {
     console.log(error)
     const errorMsg = error.response.data.message;
     console.log(errorMsg)
-    yield put(showSnakcBar(errorMsg, "error"))
+    yield put(showSnakcBar(errorMsg, "error"));
+    yield put(signUpFailure());
   }
 }
 

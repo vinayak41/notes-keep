@@ -1,3 +1,4 @@
+const { listeners } = require("../models/note");
 const Note = require("../models/note");
 
 exports.addNote = (req, res) => {
@@ -26,12 +27,24 @@ exports.getNotes = async (req, res) => {
     return res.status(200).json({ notes: [] });
 };
 
-exports.deleteNote = async (req, res) => {
+exports.deleteNoteForever = async (req, res) => {
     const noteId = req.params.id;
     const userId = req.body.userId;
-    console.log(noteId)
     const deletedNote = await Note.findOneAndDelete({
         $and: [{ noteId }, { userId }]
     });
     res.status(200).json({ deletedNote });
+};
+
+exports.updateNote = async (req, res) => {
+    const noteId = req.params.id;
+    const { isDeleted } = req.body;
+    let note = await Note.findOne({ noteId });
+    if (note) {
+        if (typeof isDeleted !== "undefined") {
+            await Note.findOneAndUpdate({ noteId }, { isDeleted });
+        }
+        return res.status(200).json({ note });
+    }
+    return res.status(400).json({ message: "Something went wrong" });
 };

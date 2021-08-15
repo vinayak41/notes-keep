@@ -1,11 +1,17 @@
 import Navbar from "./components/Navbar";
 import { makeStyles } from "@material-ui/core/styles";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import routes from "./router";
 import { useEffect } from "react";
 import { getUser } from "./redux/actions/userActions";
 import SnackBar from "./components/SnackBar";
+
+import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Error404 from "./pages/Error404";
+import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -30,28 +36,28 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.user.isLogin);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const isLoading = useSelector((state) => state.user.isLoading);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (token) {
+      console.log("useEf")
       dispatch(getUser(token));
     }
   }, []);
 
   return (
     <div className="App">
+      {console.log("app")}
       <Navbar />
       <div className={classes.body}>
         <Switch>
-          {routes.map((route) => (
-            <Route
-              key={route.path}
-              path={route.path}
-              component={route.component(isLogin)}
-              exact={route.exact ? true : false}
-            />
-          ))}
+          <PrivateRoute path={"/"} Component={() => <Redirect to="/home" />} exact />
+          <PrivateRoute path={"/home"} Component={Home} />
+          <PublicRoute path="/signin" Component={SignIn} restricted />
+          <PublicRoute path="/signup" Component={SignUp} restricted />
+          <Route component={Error404} />
         </Switch>
       </div>
       <SnackBar />

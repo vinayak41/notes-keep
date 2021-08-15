@@ -10,25 +10,25 @@ import {
 } from "../typeConstants/userTypeConstants";
 
 //signup actions
-export const signUpRequest = (fromData, history) => {
+export const signUpRequest = (formData, history) => {
   return {
     type: SIGNUP_REQUEST,
-    payload: fromData,
+    payload: formData,
     history: history
   };
 };
 
-// export const signUpSuccess = () => {
-//   return {
-//     type: SIGNUP_SUCCESS,
-//   };
-// };
+export const signUpSuccess = () => {
+  return {
+    type: SIGNUP_SUCCESS,
+  };
+};
 
-// export const signUpFailure = () => {
-//   return {
-//     type: SIGNUP_FAILURE,
-//   };
-// };
+export const signUpFailure = () => {
+  return {
+    type: SIGNUP_FAILURE,
+  };
+};
 
 //sigin actions
 export const signInRequest = (formData) => {
