@@ -7,7 +7,11 @@ import IconButton from "@material-ui/core/IconButton";
 import ColorLensOutlinedIcon from "@material-ui/icons/ColorLensOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import { deleteNoteForever, deleteNote, restoreNote } from "../redux/actions/noteActions";
+import {
+  deleteNoteForever,
+  deleteNote,
+  restoreNote
+} from "../redux/actions/noteActions";
 import RestoreFromTrashOutlinedIcon from "@material-ui/icons/RestoreFromTrashOutlined";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 
@@ -45,10 +49,10 @@ const Note = ({ note }) => {
     if (isDeleted) dispatch(deleteNoteForever(noteId));
     else dispatch(deleteNote(noteId));
   };
-  
+
   const handleRestore = () => {
-    dispatch(restoreNote(noteId))
-  }
+    dispatch(restoreNote(noteId));
+  };
   return (
     <Paper elevation={3} className={classes.note}>
       {(
@@ -71,9 +75,11 @@ const Note = ({ note }) => {
         <IconButton onClick={handleDelete}>
           {isDeleted ? <DeleteForeverOutlinedIcon /> : <DeleteOutlineIcon />}
         </IconButton>
-        <IconButton onClick={handleRestore}>
-          {isDeleted ? <RestoreFromTrashOutlinedIcon /> : null}
-        </IconButton>
+        {isDeleted ? (
+          <IconButton onClick={handleRestore}>
+            <RestoreFromTrashOutlinedIcon />
+          </IconButton>
+        ) : null}
       </Toolbar>
     </Paper>
   );
