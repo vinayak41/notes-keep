@@ -1,5 +1,5 @@
 import { Paper } from "@material-ui/core";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -14,6 +14,7 @@ import {
 } from "../redux/actions/noteActions";
 import RestoreFromTrashOutlinedIcon from "@material-ui/icons/RestoreFromTrashOutlined";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
+import ColorMenu from "./ColorMenu";
 
 const useStyles = makeStyles((theme) => ({
   note: {
@@ -42,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
 const Note = ({ note }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { noteContent, noteId, isDeleted } = note;
+  const { noteContent, noteId, isDeleted, color } = note;
+  const [anchorEl, setAnchorEl] = useState(null)
 
   const handleDelete = () => {
     console.log(isDeleted);
@@ -53,8 +55,14 @@ const Note = ({ note }) => {
   const handleRestore = () => {
     dispatch(restoreNote(noteId));
   };
+
+  const handleOpenColorMenu = (e) => {
+    setAnchorEl(e.currentTarget)
+  }
+
   return (
-    <Paper elevation={3} className={classes.note}>
+    <>
+    <Paper elevation={3} className={classes.note} style={{backgroundColor: `${color ?? null}`}}>
       {(
         <div
           dangerouslySetInnerHTML={{ __html: noteContent }}
@@ -64,7 +72,7 @@ const Note = ({ note }) => {
       <Toolbar variant="dense" className={classes.toolbar}>
         {!isDeleted ? (
           <>
-            <IconButton>
+            <IconButton onClick={handleOpenColorMenu}>
               <ColorLensOutlinedIcon />
             </IconButton>
             <IconButton>
@@ -82,6 +90,8 @@ const Note = ({ note }) => {
         ) : null}
       </Toolbar>
     </Paper>
+    <ColorMenu noteId={noteId} anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+    </>
   );
 };
 

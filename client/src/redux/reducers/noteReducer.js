@@ -1,5 +1,6 @@
 import {
   ADD_NOTE,
+  CHANGE_NOTE_BG_COLOR,
   DELETE_NOTE,
   DELETE_NOTE_FOREVER,
   GET_NOTES_SUCCESS,
@@ -54,6 +55,16 @@ export default (state = initialState, action) => {
           return note;
         })
       };
+    case CHANGE_NOTE_BG_COLOR:
+      return {
+        ...state,
+        notes: state.notes.map((note) => {
+          if (note.noteId === action.payload.noteId) {
+            return {...note, color: action.payload.color}
+          }
+          return note;
+        })
+      }
     default:
       return state;
   }
