@@ -92,6 +92,7 @@ export default function ColorMenu({ noteId, anchorEl, setAnchorEl }) {
   const handleButtonClick = (index) => {
     const color = noteBgColors[index].light
     dispatch(changeNoteBgColor(noteId, color))
+    handleClose();
   }
 
   const open = Boolean(anchorEl);
