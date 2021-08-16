@@ -64,7 +64,6 @@ function* getUser(action) {
         authorization: `Bearer ${action.payload}`,
       },
     });
-    console.log(response);
     yield put(setUser());
     yield put(getNotes())
   } catch (err) {

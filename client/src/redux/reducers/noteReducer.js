@@ -5,7 +5,8 @@ import {
   DELETE_NOTE_FOREVER,
   GET_NOTES_SUCCESS,
   RESTORE_NOTE,
-  SAVE_NOTE_SUCCESS
+  SAVE_NOTE_SUCCESS,
+  UPDATE_NOTE_CONTENT
 } from "../typeConstants/noteTypeConstants";
 
 const initialState = {
@@ -61,6 +62,16 @@ export default (state = initialState, action) => {
         notes: state.notes.map((note) => {
           if (note.noteId === action.payload.noteId) {
             return {...note, color: action.payload.color}
+          }
+          return note;
+        })
+      }
+    case UPDATE_NOTE_CONTENT: 
+      return {
+        ...state,
+        notes: state.notes.map((note) => {
+          if (note.noteId === action.payload.noteId) {
+            return {...note, noteContent: action.payload.noteContent}
           }
           return note;
         })

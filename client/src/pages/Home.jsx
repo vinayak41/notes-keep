@@ -33,9 +33,6 @@ function Home(props) {
   const { notes } = useSelector((state) => state.note);
   const classes = useStyles();
 
-  console.log(props);
-  console.log(`${props.location.pathname}/bin`);
-
   return (
     <div className={classes.mainWindow}>
       <NoteEditor open={openNoteEditor} setOpen={setOpenNoteEditor} />

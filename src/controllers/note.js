@@ -38,7 +38,7 @@ exports.deleteNoteForever = async (req, res) => {
 
 exports.updateNote = async (req, res) => {
   const noteId = req.params.id;
-  const { isDeleted, color } = req.body;
+  const { isDeleted, color, noteContent } = req.body;
   let note = await Note.findOne({ noteId });
   if (note) {
     if (typeof isDeleted !== "undefined") {
@@ -46,6 +46,9 @@ exports.updateNote = async (req, res) => {
     }
     if (typeof color !== "undefined") {
       await Note.findOneAndUpdate({ noteId }, { color });
+    }
+    if (typeof noteContent !== "undefined") {
+      await Note.findOneAndUpdate({ noteId }, { noteContent });
     }
     return res.status(200).json({ note });
   }

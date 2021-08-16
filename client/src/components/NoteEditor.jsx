@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {useDispatch} from "react-redux"
 
 import ReactQuill from "react-quill";
@@ -10,8 +10,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
-
-import { addNote } from "../redux/actions/noteActions";
+import { addNote, updateNoteContent } from "../redux/actions/noteActions";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -57,15 +56,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NoteEditor({ open, setOpen }) {
+export default function NoteEditor({ open, setOpen, note }) {
   const classes = useStyles();
   const [noteContent, setNoteContent] = useState("");
   const inputRef = useRef(null);
   const dispatch = useDispatch()
-
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
 
   const handleClose = () => {
     setNoteContent("")
@@ -77,11 +72,20 @@ export default function NoteEditor({ open, setOpen }) {
   };
 
   const handleAddNote = () => {
-    const noteId = uuid4();
-    console.log(noteId)
-    dispatch(addNote(noteContent, noteId))
+    if(note) {
+      dispatch(updateNoteContent(note.noteId, noteContent))
+    } else {
+      const noteId = uuid4();
+      dispatch(addNote(noteContent, noteId))
+    }
     handleClose();
   }
+
+  useEffect(()=>{
+    if(open && note) {
+      setNoteContent(note?.noteContent)
+    }
+  }, [open])
 
   return (
     <div>
@@ -89,6 +93,7 @@ export default function NoteEditor({ open, setOpen }) {
         className={classes.modal}
         open={open}
         onClose={handleClose}
+        on
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{

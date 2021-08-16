@@ -15,6 +15,7 @@ import {
 import RestoreFromTrashOutlinedIcon from "@material-ui/icons/RestoreFromTrashOutlined";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import ColorMenu from "./ColorMenu";
+import NoteEditor from "./NoteEditor";
 
 const useStyles = makeStyles((theme) => ({
   note: {
@@ -44,10 +45,10 @@ const Note = ({ note }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { noteContent, noteId, isDeleted, color } = note;
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [openNoteEditor, setOpenNoteEditor] = useState(false);
 
   const handleDelete = () => {
-    console.log(isDeleted);
     if (isDeleted) dispatch(deleteNoteForever(noteId));
     else dispatch(deleteNote(noteId));
   };
@@ -60,8 +61,13 @@ const Note = ({ note }) => {
     setAnchorEl(e.currentTarget)
   }
 
+  const handleNoteEdit = () => {
+    setOpenNoteEditor(true)
+  }
+
   return (
     <>
+    <NoteEditor open={openNoteEditor} setOpen={setOpenNoteEditor} note={note} />
     <Paper elevation={3} className={classes.note} style={{backgroundColor: `${color ?? null}`}}>
       {(
         <div
@@ -75,7 +81,7 @@ const Note = ({ note }) => {
             <IconButton onClick={handleOpenColorMenu}>
               <ColorLensOutlinedIcon />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={handleNoteEdit}>
               <EditOutlinedIcon />
             </IconButton>
           </>

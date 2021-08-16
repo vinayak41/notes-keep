@@ -10,7 +10,8 @@ import {
     DELETE_NOTE,
     DELETE_NOTE_FOREVER,
     RESTORE_NOTE,
-    CHANGE_NOTE_BG_COLOR
+    CHANGE_NOTE_BG_COLOR,
+    UPDATE_NOTE_CONTENT
 } from "../typeConstants/noteTypeConstants";
 
 const token = sessionStorage.getItem("token")
@@ -46,7 +47,6 @@ function* getNotes(action) {
                 authorization: `Bearer ${token}`
             }
          })
-         console.log(response.data.notes)
          yield put({type: GET_NOTES_SUCCESS, payload: response.data.notes})
     } catch (error) {
 
@@ -118,6 +118,23 @@ function* changeNoteBgColor(action) {
     }
 }
 
+function* updateNoteContent(action) {
+    try {
+        yield call(axios({
+            method: 'put',
+            url: `${NOTE_API}/${action.payload.noteId}`,
+            data: {
+                noteContent: action.payload.noteContent
+            },
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }))
+    } catch(err) {
+        console.log(err)
+    }
+}
+
 export default function* noteSaga() {
     yield takeEvery(ADD_NOTE, saveNote);
     yield takeEvery(GET_NOTES_REQUEST, getNotes);
@@ -125,4 +142,5 @@ export default function* noteSaga() {
     yield takeEvery(DELETE_NOTE, deleteNote)
     yield takeEvery(RESTORE_NOTE, restoreNote)
     yield takeEvery(CHANGE_NOTE_BG_COLOR, changeNoteBgColor)
+    yield takeEvery(UPDATE_NOTE_CONTENT, updateNoteContent)
 }

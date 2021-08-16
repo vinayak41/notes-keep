@@ -1,4 +1,4 @@
-import { ADD_NOTE, CHANGE_NOTE_BG_COLOR, DELETE_NOTE, DELETE_NOTE_FOREVER, GET_NOTES_REQUEST, RESTORE_NOTE } from "../typeConstants/noteTypeConstants";
+import { ADD_NOTE, CHANGE_NOTE_BG_COLOR, DELETE_NOTE, DELETE_NOTE_FOREVER, GET_NOTES_REQUEST, RESTORE_NOTE, UPDATE_NOTE_CONTENT } from "../typeConstants/noteTypeConstants";
 
 export const addNote = (noteContent, noteId) => {
   return {
@@ -43,6 +43,16 @@ export const changeNoteBgColor = (noteId, color) => {
     payload: {
       noteId,
       color
+    }
+  }
+}
+
+export const updateNoteContent = (noteId, noteContent) => {
+  return {
+    type: UPDATE_NOTE_CONTENT,
+    payload: {
+      noteId,
+      noteContent
     }
   }
 }
