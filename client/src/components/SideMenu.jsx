@@ -47,7 +47,7 @@ export default function SideMenu() {
             </IconButton>
           </Link>
         </ListItem>
-        <ListItem>
+        {/* <ListItem>
           <IconButton>
             <LabelOutlinedIcon />
           </IconButton>
@@ -56,7 +56,7 @@ export default function SideMenu() {
           <IconButton>
             <EditOutlinedIcon />
           </IconButton>
-        </ListItem>
+        </ListItem> */}
         <ListItem>
           <Link to="/home/bin">
             <IconButton>
