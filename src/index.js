@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const cors = require("cors")
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user");
-const noteRoutes = require("./routes/note")
+const noteRoutes = require("./routes/note");
+const path = require("path");
 
 const app = express();
 env.config();
