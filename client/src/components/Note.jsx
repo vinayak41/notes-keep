@@ -16,6 +16,8 @@ import RestoreFromTrashOutlinedIcon from "@material-ui/icons/RestoreFromTrashOut
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import ColorMenu from "./ColorMenu";
 import NoteEditor from "./NoteEditor";
+import { useTheme } from "@material-ui/core/styles";
+import { noteBgColors } from "./ColorMenu";
 
 const useStyles = makeStyles((theme) => ({
   note: {
@@ -57,6 +59,8 @@ const Note = ({ note }) => {
     dispatch(restoreNote(noteId));
   };
 
+  const theme = useTheme()
+
   const handleOpenColorMenu = (e) => {
     setAnchorEl(e.currentTarget)
   }
@@ -68,7 +72,7 @@ const Note = ({ note }) => {
   return (
     <>
     <NoteEditor open={openNoteEditor} setOpen={setOpenNoteEditor} note={note} />
-    <Paper elevation={3} className={classes.note} style={{backgroundColor: `${color ?? null}`}}>
+    <Paper elevation={3} className={classes.note} style={{backgroundColor: `${theme.palette.type === "dark" ? color?.dark || noteBgColors[0].dark : color?.light || noteBgColors[0].light}`}}>
       {(
         <div
           dangerouslySetInnerHTML={{ __html: noteContent }}

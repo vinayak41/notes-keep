@@ -1,5 +1,4 @@
 import { ADD_NOTE, CHANGE_NOTE_BG_COLOR, DELETE_NOTE, DELETE_NOTE_FOREVER, GET_NOTES_REQUEST, RESTORE_NOTE, UPDATE_NOTE_CONTENT } from "../typeConstants/noteTypeConstants";
-
 export const addNote = (noteContent, noteId) => {
   return {
     type: ADD_NOTE,
@@ -10,10 +9,11 @@ export const addNote = (noteContent, noteId) => {
   };
 };
 
-export const getNotes = () => {
+export const getNotes = (token) => {
   return {
     type: GET_NOTES_REQUEST,
-  }
+    payload: token
+ }
 }
 
 export const deleteNoteForever = (noteId) => {

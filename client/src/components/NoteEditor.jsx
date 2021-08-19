@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -24,46 +24,60 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(8),
     borderRadius: "5px",
+    "& .ql-toolbar .ql-stroke": {
+      fill: "none",
+      stroke: theme.palette.text.primary
+    },
+    "& .ql-toolbar .ql-fill": {
+      fill: theme.palette.text.primary,
+      stroke: "none"
+    },
+    "& .ql-toolbar .ql-picker": {
+      color: theme.palette.text.primary
+    },
+    "& .ql-picker-options": {
+      backgroundColor: theme.palette.background.default
+    },
   },
   form: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "center"
   },
   inputGroup: {
     display: "flex",
     flexDirection: "column",
     "&>*": {
-      margin: "3px",
+      margin: "3px"
     },
     "& input": {
       width: "17rem",
-      height: "2rem",
-    },
+      height: "2rem"
+    }
   },
-  btnsWrapper: { 
+  btnsWrapper: {
     width: "100%",
     display: "flex",
     justifyContent: "center"
   },
   saveBtn: {
     backgroundColor: "#42f554",
-    margin: "6px",
+    margin: "6px"
   },
   cancelBtn: {
     backgroundColor: "#ff3849",
-    margin: "6px",
-  },
+    margin: "6px"
+  }
 }));
 
 export default function NoteEditor({ open, setOpen, note }) {
   const classes = useStyles();
   const [noteContent, setNoteContent] = useState("");
   const inputRef = useRef(null);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleClose = () => {
-    setNoteContent("")
+    setNoteContent("");
     setOpen(false);
   };
 
@@ -72,20 +86,20 @@ export default function NoteEditor({ open, setOpen, note }) {
   };
 
   const handleAddNote = () => {
-    if(note) {
-      dispatch(updateNoteContent(note.noteId, noteContent))
+    if (note) {
+      dispatch(updateNoteContent(note.noteId, noteContent));
     } else {
       const noteId = uuid4();
-      dispatch(addNote(noteContent, noteId))
+      dispatch(addNote(noteContent, noteId));
     }
     handleClose();
-  }
+  };
 
-  useEffect(()=>{
-    if(open && note) {
-      setNoteContent(note?.noteContent)
+  useEffect(() => {
+    if (open && note) {
+      setNoteContent(note?.noteContent);
     }
-  }, [open])
+  }, [open]);
 
   return (
     <div>
@@ -97,7 +111,7 @@ export default function NoteEditor({ open, setOpen, note }) {
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
-          timeout: 500,
+          timeout: 500
         }}
       >
         <Fade in={open}>
@@ -108,10 +122,18 @@ export default function NoteEditor({ open, setOpen, note }) {
               onChange={handleChange}
             />
             <div className={classes.btnsWrapper}>
-              <Button variant="contained" className={classes.saveBtn} onClick={handleAddNote}>
+              <Button
+                variant="contained"
+                className={classes.saveBtn}
+                onClick={handleAddNote}
+              >
                 Save
               </Button>
-              <Button variant="contained" className={classes.cancelBtn} onClick={handleClose}>
+              <Button
+                variant="contained"
+                className={classes.cancelBtn}
+                onClick={handleClose}
+              >
                 Cancel
               </Button>
             </div>

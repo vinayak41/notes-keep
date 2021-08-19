@@ -1,4 +1,5 @@
 import React from "react";
+import {useDispatch, useSelector} from "react-redux"
 import AppBar from "@material-ui/core/AppBar";
 import ToolBar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -7,6 +8,7 @@ import appLogo from "../assets/logo.png";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LoadingLine from "./LoadingLine";
+import {changeTheme} from "../redux/actions/themeActions"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +30,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const classes = useStyles();
+  const dispatch = useDispatch()
+  const themeType = useSelector(state => state.theme.type)
+
+
+  const handleThemeChange = () => {
+    dispatch(changeTheme(themeType === "light" ? "dark" : "light"))
+  }
+
   return (
     <AppBar className={classes.root}>
       <ToolBar className={classes.toolBar}>
@@ -35,7 +45,7 @@ export default function Navbar() {
         <Typography variant="h4" className={classes.title}>
           Note Keep
         </Typography>
-        <IconButton><Brightness4Icon /></IconButton>
+        <IconButton onClick={handleThemeChange}><Brightness4Icon /></IconButton>
         <IconButton><AccountCircleIcon /></IconButton>
       </ToolBar>
       <LoadingLine />

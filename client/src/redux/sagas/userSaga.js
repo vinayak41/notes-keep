@@ -46,7 +46,7 @@ function* signIn(action) {
     });
     yield put(signInSuccess(response.data.token));
     yield put(showSnakcBar("Sigin Successful", "success"));
-    yield put(getNotes())
+    yield put(getNotes(response.data.token))
   } catch (error) {
     yield put(signInFailure());
     const errorMsg = error.response.data.message;
@@ -65,7 +65,7 @@ function* getUser(action) {
       },
     });
     yield put(setUser());
-    yield put(getNotes())
+    yield put(getNotes(response.data.token))
   } catch (err) {
     console.log(err)
   }

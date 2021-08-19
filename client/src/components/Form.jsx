@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     borderRadius: "10px",
     padding: "1rem 1rem 2rem",
-    '& label.Mui-focused': {
-      color: 'black',
+    "& label.Mui-focused": {
+      color: theme.palette.text.primary,
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
       },
       '&.Mui-focused fieldset': {
         borderColor: 'grey',
+      },
+      "& .MuiInputLabel-root": {
+        color: theme.palette.text.primary,
       },
     },
   },

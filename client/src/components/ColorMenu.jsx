@@ -1,10 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import {useDispatch} from "react-redux"
 import { changeNoteBgColor } from "../redux/actions/noteActions";
 
-const noteBgColors = [
+export const noteBgColors = [
   {
     light: "#ffffff",
     dark: "#212024"
@@ -81,16 +81,14 @@ export default function ColorMenu({ noteId, anchorEl, setAnchorEl }) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
+  const theme = useTheme();
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const handleButtonClick = (index) => {
-    const color = noteBgColors[index].light
+    const color = noteBgColors[index]
     dispatch(changeNoteBgColor(noteId, color))
     handleClose();
   }
@@ -119,7 +117,7 @@ export default function ColorMenu({ noteId, anchorEl, setAnchorEl }) {
           onClick={() => handleButtonClick(index)}
           key={color.light}
           className={classes.colorBtn}
-          style={{ backgroundColor: `${noteBgColors[index].light}` }}
+          style={{ backgroundColor: `${noteBgColors[index][theme.palette.type]}` }}
         />
       ))}
     </Popover>

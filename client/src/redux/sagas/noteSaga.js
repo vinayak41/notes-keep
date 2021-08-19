@@ -44,7 +44,7 @@ function* getNotes(action) {
              method: "get",
              url: `${NOTE_API}`,
              headers: {
-                authorization: `Bearer ${token}`
+                authorization: `Bearer ${action.payload || token }`
             }
          })
          yield put({type: GET_NOTES_SUCCESS, payload: response.data.notes})
@@ -103,7 +103,7 @@ function* restoreNote(action) {
 
 function* changeNoteBgColor(action) {
     try {
-        yield call(axios({
+        yield call(axios, {
             method: 'put',
             url: `${NOTE_API}/${action.payload.noteId}`,
             data: {
@@ -112,7 +112,7 @@ function* changeNoteBgColor(action) {
             headers: {
                 authorization: `Bearer ${token}`
             }
-        }))
+        })
     } catch(err) {
         console.log(err)
     }

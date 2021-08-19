@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUser } from "./redux/actions/userActions";
 import SnackBar from "./components/SnackBar";
-
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Error404 from "./pages/Error404";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import { changeTheme } from "./redux/actions/themeActions";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -43,6 +43,10 @@ function App() {
     const token = sessionStorage.getItem("token");
     if (token) {
       dispatch(getUser(token));
+    }
+    const themeType = localStorage.getItem("theme");
+    if(themeType) {
+      dispatch(changeTheme(themeType))
     }
   }, []);
 

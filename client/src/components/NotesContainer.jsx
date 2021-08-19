@@ -33,7 +33,7 @@ const NotesContainer = ({notes}) => {
       className={classes.masonryGrid}
       columnClassName={classes.masonaryGridColumn}
     >
-      {notes ? notes.map( note => <Note note={note} />) : null }
+      {notes ? notes.map( note => <Note key={note.noteId} note={note} />) : null }
     </Masonry>
   );
 };
